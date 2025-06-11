@@ -193,17 +193,16 @@ if (location === 'city' || location === 'rural') {
 let numberOfMatch = 0;
 
 for (let person of mockData) {
-  const ageMatch = person.age >= userProfile.min_age_interest && person.age <= userProfile.max_age_interest;
-  const genderMatch = person.gender === userProfile.gender_interest && person.gender_interest === userProfile.gender;
-  const locationMatch = person.location === userProfile.location;
+const userProfileAgeMatch = person.age >= userProfile.min_age_interest && person.age <= userProfile.max_age_interest;
+  // added mutual age interest; thank you for your feedback
+const mutualAgeMatch = userProfile.age >= person.min_age_interest && userProfile.age <= person.max_age_interest;
+const genderMatch = person.gender === userProfile.gender_interest && person.gender_interest === userProfile.gender;
+const locationMatch = person.location === userProfile.location;
 
-  if (ageMatch && genderMatch && locationMatch) {
+  if (userProfileAgeMatch && mutualAgeMatch && genderMatch && locationMatch) {
     console.log(`${person.first_name} ${person.last_name}, ${person.age} from the ${person.location} is your match!`);
     numberOfMatch++;
   }
 }
 
 console.log(`You have ${numberOfMatch} match(es).`);
-
-
-// Feedback in either Dutch or English is fine. Also, I have got a question if I can use anything else instead of repeating while(true) loops.
